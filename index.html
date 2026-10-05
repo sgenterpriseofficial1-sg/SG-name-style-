@@ -1,56 +1,1061 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1677ff">
-<meta name="description" content="SG Name Style - beautiful name generator">
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="css/style.css">
-<title>SG Name Style</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SG Name Style Generator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef7ff, #fff0f8);
+    color: #182033;
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(135deg, #168cff, #ff3f9f);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.subtitle {
+    margin-top: 7px;
+    opacity: 0.9;
+}
+
+/* MAIN */
+
+.container {
+    width: min(950px, 94%);
+    margin: 25px auto 60px;
+}
+
+/* GENERATOR */
+
+.generator {
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.generator h2 {
+    margin-bottom: 15px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e1e7ef;
+    border-radius: 13px;
+    outline: none;
+    font-size: 17px;
+    transition: 0.2s;
+}
+
+.name-input:focus {
+    border-color: #168cff;
+}
+
+.generate-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 16px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(90deg, #168cff, #ff3f9f);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    opacity: 0.9;
+}
+
+/* CATEGORIES */
+
+.categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.category {
+    white-space: nowrap;
+    border: none;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.category.active {
+    background: #168cff;
+    color: white;
+}
+
+/* SEARCH */
+
+.search {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e1e7ef;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    outline: none;
+}
+
+/* RESULTS */
+
+.results-title {
+    margin-bottom: 15px;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.07);
+}
+
+.card-category {
+    font-size: 12px;
+    color: #168cff;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.style-name {
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.copy-btn,
+.like-btn {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.copy-btn {
+    flex: 1;
+    background: #168cff;
+    color: white;
+}
+
+.like-btn {
+    background: #ffe7f2;
+    color: #ff3f9f;
+}
+
+.like-btn.liked {
+    background: #ff3f9f;
+    color: white;
+}
+
+/* EMPTY */
+
+.empty {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 18px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #687386;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .generator {
+        padding: 18px;
+    }
+
+    .style-name {
+        font-size: 19px;
+    }
+
+}
+</style>
 </head>
+
 <body>
-<div class="app">
-<header class="topbar">
-  <div class="brand">
-    <div class="logo"><img id="appLogo" alt="SG"></div>
-    <div><strong>SG Name Style</strong><small>SG ENTERPRISE</small></div>
-  </div>
-  <button id="themeBtn" class="icon-btn" title="Theme">☾</button>
+
+<header>
+    <div class="logo">SG Name Style</div>
+    <div class="subtitle">
+        Create beautiful names, symbols and stylish text
+    </div>
 </header>
 
-<main>
-<section class="hero">
-  <div class="glow"></div>
-  <span class="eyebrow">✦ NAME STYLE GENERATOR</span>
-  <h1>Your name.<br><span>Your style.</span></h1>
-  <p>Create beautiful names for games, social media, profiles and more.</p>
-  <div class="input-box">
-    <input id="nameInput" value="Surahata Gumaneh" maxlength="60" placeholder="Enter your name">
-    <button id="generateBtn">Generate <b>→</b></button>
-  </div>
-</section>
+<main class="container">
 
-<section class="toolbar">
-  <div>
-    <h2>Explore styles</h2>
-    <small id="count">0 styles</small>
-  </div>
-  <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search styles"></div>
-</section>
+    <section class="generator">
 
-<nav id="categories" class="categories"></nav>
-<section id="styles" class="grid"></section>
-<div id="empty" class="empty hidden">No styles found.</div>
+        <h2>✨ Create Your Name</h2>
+
+        <input
+            id="nameInput"
+            class="name-input"
+            type="text"
+            placeholder="Enter your name..."
+            maxlength="40"
+        >
+
+        <button class="generate-btn" onclick="generateNames()">
+            Generate Styles
+        </button>
+
+    </section>
+
+    <div class="categories">
+
+        <button class="category active" data-category="All">
+            All
+        </button>
+
+        <button class="category" data-category="Elegant">
+            ✨ Elegant
+        </button>
+
+        <button class="category" data-category="Gamer">
+            🎮 Gamer
+        </button>
+
+        <button class="category" data-category="Symbols">
+            ⚡ Symbols
+        </button>
+
+        <button class="category" data-category="Minimal">
+            ◻️ Minimal
+        </button>
+
+        <button class="category" data-category="Invisible">
+            🫥 Invisible
+        </button>
+
+        <button class="category" data-category="Fancy">
+            💎 Fancy
+        </button>
+
+    </div>
+
+    <input
+        id="searchInput"
+        class="search"
+        placeholder="Search styles..."
+        oninput="renderResults()"
+    >
+
+    <h2 class="results-title">
+        Generated Styles
+    </h2>
+
+    <section id="results" class="results"></section>
+
 </main>
 
-<footer><b>SG ENTERPRISE</b> · SG Name Style · Works offline</footer>
-</div>
+<footer>
+    © 2026 SG ENTERPRISE • SG Name Style
+</footer>
 
-<div id="toast"></div>
-<script src="js/config.js"></script>
-<script src="js/styles.js"></script>
-<script src="js/storage.js"></script>
-<script src="js/app.js"></script>
+
+<script>
+
+/* =========================================
+   STYLE DEFINITIONS
+========================================= */
+
+const styles = [
+
+    {
+        name: "Bold",
+        category: "Elegant",
+        transform: text => unicodeBold(text)
+    },
+
+    {
+        name: "Italic",
+        category: "Elegant",
+        transform: text => unicodeItalic(text)
+    },
+
+    {
+        name: "Bold Italic",
+        category: "Elegant",
+        transform: text => unicodeBoldItalic(text)
+    },
+
+    {
+        name: "Monospace",
+        category: "Minimal",
+        transform: text => unicodeMono(text)
+    },
+
+    {
+        name: "Small Caps",
+        category: "Minimal",
+        transform: text => smallCaps(text)
+    },
+
+    {
+        name: "Full Width",
+        category: "Fancy",
+        transform: text => fullWidth(text)
+    },
+
+    {
+        name: "Circled",
+        category: "Fancy",
+        transform: text => circled(text)
+    },
+
+    {
+        name: "Squared",
+        category: "Fancy",
+        transform: text => squared(text)
+    },
+
+    {
+        name: "Double Struck",
+        category: "Fancy",
+        transform: text => doubleStruck(text)
+    },
+
+    {
+        name: "Gothic",
+        category: "Fancy",
+        transform: text => gothic(text)
+    },
+
+    {
+        name: "Gamer 亗",
+        category: "Gamer",
+        transform: text => `亗 ${text} 亗`
+    },
+
+    {
+        name: "Gamer 乂",
+        category: "Gamer",
+        transform: text => `乂 ${text} 乂`
+    },
+
+    {
+        name: "Gamer メ",
+        category: "Gamer",
+        transform: text => `『${text}』メ`
+    },
+
+    {
+        name: "Gamer 么",
+        category: "Gamer",
+        transform: text => `么 ${text} 么`
+    },
+
+    {
+        name: "Warrior",
+        category: "Gamer",
+        transform: text => `⚔️ ${text} ⚔️`
+    },
+
+    {
+        name: "Fire",
+        category: "Gamer",
+        transform: text => `🔥 ${text} 🔥`
+    },
+
+    {
+        name: "Crown",
+        category: "Gamer",
+        transform: text => `♛ ${text} ♛`
+    },
+
+    {
+        name: "Star",
+        category: "Symbols",
+        transform: text => `★ ${text} ★`
+    },
+
+    {
+        name: "Diamond",
+        category: "Symbols",
+        transform: text => `◆ ${text} ◆`
+    },
+
+    {
+        name: "Hearts",
+        category: "Symbols",
+        transform: text => `♡ ${text} ♡`
+    },
+
+    {
+        name: "Arrow",
+        category: "Symbols",
+        transform: text => `➳ ${text} ➳`
+    },
+
+    {
+        name: "Cloud",
+        category: "Symbols",
+        transform: text => `☁ ${text} ☁`
+    },
+
+    {
+        name: "Moon",
+        category: "Symbols",
+        transform: text => `☾ ${text} ☽`
+    },
+
+    {
+        name: "Minimal Dot",
+        category: "Minimal",
+        transform: text => `• ${text} •`
+    },
+
+    {
+        name: "Minimal Line",
+        category: "Minimal",
+        transform: text => `— ${text} —`
+    },
+
+    {
+        name: "Minimal Slash",
+        category: "Minimal",
+        transform: text => `/ ${text} /`
+    },
+
+    {
+        name: "Minimal SG",
+        category: "Minimal",
+        transform: text => `SG • ${text}`
+    },
+
+    {
+        name: "Invisible Space",
+        category: "Invisible",
+        transform: text => `ㅤ${text}ㅤ`
+    },
+
+    {
+        name: "Invisible Dot",
+        category: "Invisible",
+        transform: text => `⠀${text}⠀`
+    },
+
+    {
+        name: "Invisible Brackets",
+        category: "Invisible",
+        transform: text => `ㅤ『${text}』ㅤ`
+    },
+
+    {
+        name: "Fancy Crown",
+        category: "Fancy",
+        transform: text => `꧁༺ ${text} ༻꧂`
+    },
+
+    {
+        name: "Fancy Wings",
+        category: "Fancy",
+        transform: text => `𓆩 ${text} 𓆪`
+    },
+
+    {
+        name: "Fancy Box",
+        category: "Fancy",
+        transform: text => `『 ${text} 』`
+    },
+
+    {
+        name: "Fancy Flower",
+        category: "Fancy",
+        transform: text => `༺ ${text} ༻`
+    },
+
+    {
+        name: "Fancy Diamond",
+        category: "Fancy",
+        transform: text => `◇◆ ${text} ◆◇`
+    },
+
+    {
+        name: "Fancy Stars",
+        category: "Fancy",
+        transform: text => `✦ ${text} ✦`
+    }
+
+];
+
+
+/* =========================================
+   CURRENT STATE
+========================================= */
+
+let currentCategory = "All";
+
+let generatedName = "";
+
+let likes = JSON.parse(
+    localStorage.getItem("sgNameLikes") || "{}"
+);
+
+
+/* =========================================
+   GENERATE
+========================================= */
+
+function generateNames() {
+
+    const input = document
+        .getElementById("nameInput")
+        .value
+        .trim();
+
+    if (!input) {
+
+        alert("Please enter your name first.");
+
+        return;
+    }
+
+    generatedName = input;
+
+    renderResults();
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderResults() {
+
+    const results = document.getElementById("results");
+
+    const search = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    if (!generatedName) {
+
+        results.innerHTML = `
+            <div class="empty">
+                ✨ Enter your name above and generate your first styles.
+            </div>
+        `;
+
+        return;
+    }
+
+    let filtered = styles.filter(style => {
+
+        const categoryMatch =
+            currentCategory === "All" ||
+            style.category === currentCategory;
+
+        const searchMatch =
+            style.name.toLowerCase().includes(search);
+
+        return categoryMatch && searchMatch;
+
+    });
+
+
+    if (filtered.length === 0) {
+
+        results.innerHTML = `
+            <div class="empty">
+                No styles found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    results.innerHTML = filtered.map((style, index) => {
+
+        const styleText = style.transform(generatedName);
+
+        const id = style.name.replace(/\s/g, "-");
+
+        const likeCount = likes[id] || 0;
+
+        const liked =
+            localStorage.getItem("liked_" + id) === "true";
+
+
+        return `
+
+        <article class="card">
+
+            <div class="card-category">
+                ${style.category}
+            </div>
+
+            <div class="style-name">
+                ${escapeHTML(styleText)}
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText(${JSON.stringify(styleText)})"
+                >
+                    📋 Copy
+                </button>
+
+                <button
+                    class="like-btn ${liked ? "liked" : ""}"
+                    onclick="likeStyle('${id}')"
+                >
+                    ❤️ ${likeCount}
+                </button>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }).join("");
+}
+
+
+/* =========================================
+   COPY
+========================================= */
+
+async function copyText(text) {
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        showMessage("Copied! ✓");
+
+    } catch {
+
+        const textarea =
+            document.createElement("textarea");
+
+        textarea.value = text;
+
+        document.body.appendChild(textarea);
+
+        textarea.select();
+
+        document.execCommand("copy");
+
+        textarea.remove();
+
+        showMessage("Copied! ✓");
+    }
+}
+
+
+/* =========================================
+   LIKE
+========================================= */
+
+function likeStyle(id) {
+
+    const key = "liked_" + id;
+
+    const alreadyLiked =
+        localStorage.getItem(key) === "true";
+
+
+    if (alreadyLiked) {
+
+        likes[id] =
+            Math.max((likes[id] || 1) - 1, 0);
+
+        localStorage.removeItem(key);
+
+    } else {
+
+        likes[id] =
+            (likes[id] || 0) + 1;
+
+        localStorage.setItem(key, "true");
+    }
+
+
+    localStorage.setItem(
+        "sgNameLikes",
+        JSON.stringify(likes)
+    );
+
+    renderResults();
+}
+
+
+/* =========================================
+   CATEGORY BUTTONS
+========================================= */
+
+document.querySelectorAll(".category")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document
+            .querySelectorAll(".category")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+        button.classList.add("active");
+
+        currentCategory =
+            button.dataset.category;
+
+        renderResults();
+
+    });
+
+});
+
+
+/* =========================================
+   UNICODE HELPERS
+========================================= */
+
+function mapLetters(text, upperStart, lowerStart) {
+
+    let result = "";
+
+    for (const char of text) {
+
+        const code = char.codePointAt(0);
+
+        if (code >= 65 && code <= 90) {
+
+            result += String.fromCodePoint(
+                upperStart + code - 65
+            );
+
+        } else if (code >= 97 && code <= 122) {
+
+            result += String.fromCodePoint(
+                lowerStart + code - 97
+            );
+
+        } else {
+
+            result += char;
+        }
+    }
+
+    return result;
+}
+
+
+function unicodeBold(text) {
+
+    return mapLetters(
+        text,
+        0x1D400,
+        0x1D41A
+    );
+}
+
+
+function unicodeItalic(text) {
+
+    return mapLetters(
+        text,
+        0x1D434,
+        0x1D44E
+    );
+}
+
+
+function unicodeBoldItalic(text) {
+
+    return mapLetters(
+        text,
+        0x1D468,
+        0x1D482
+    );
+}
+
+
+function unicodeMono(text) {
+
+    return mapLetters(
+        text,
+        0x1D670,
+        0x1D68A
+    );
+}
+
+
+function doubleStruck(text) {
+
+    return mapLetters(
+        text,
+        0x1D538,
+        0x1D552
+    );
+}
+
+
+function gothic(text) {
+
+    return mapLetters(
+        text,
+        0x1D504,
+        0x1D51E
+    );
+}
+
+
+function fullWidth(text) {
+
+    let result = "";
+
+    for (const char of text) {
+
+        const code = char.charCodeAt(0);
+
+        if (code >= 33 && code <= 126) {
+
+            result += String.fromCharCode(
+                code + 0xFEE0
+            );
+
+        } else if (char === " ") {
+
+            result += "　";
+
+        } else {
+
+            result += char;
+        }
+    }
+
+    return result;
+}
+
+
+function circled(text) {
+
+    let result = "";
+
+    for (const char of text.toUpperCase()) {
+
+        const code = char.charCodeAt(0);
+
+        if (code >= 65 && code <= 90) {
+
+            result += String.fromCodePoint(
+                0x24B6 + code - 65
+            );
+
+        } else {
+
+            result += char;
+        }
+    }
+
+    return result;
+}
+
+
+function squared(text) {
+
+    let result = "";
+
+    for (const char of text.toUpperCase()) {
+
+        const code = char.charCodeAt(0);
+
+        if (code >= 65 && code <= 90) {
+
+            result += String.fromCodePoint(
+                0x1F130 + code - 65
+            );
+
+        } else {
+
+            result += char;
+        }
+    }
+
+    return result;
+}
+
+
+function smallCaps(text) {
+
+    const map = {
+
+        a:"ᴀ",
+        b:"ʙ",
+        c:"ᴄ",
+        d:"ᴅ",
+        e:"ᴇ",
+        f:"ꜰ",
+        g:"ɢ",
+        h:"ʜ",
+        i:"ɪ",
+        j:"ᴊ",
+        k:"ᴋ",
+        l:"ʟ",
+        m:"ᴍ",
+        n:"ɴ",
+        o:"ᴏ",
+        p:"ᴘ",
+        q:"ǫ",
+        r:"ʀ",
+        s:"s",
+        t:"ᴛ",
+        u:"ᴜ",
+        v:"ᴠ",
+        w:"ᴡ",
+        x:"x",
+        y:"ʏ",
+        z:"ᴢ"
+    };
+
+    return text
+        .split("")
+        .map(c =>
+            map[c.toLowerCase()] || c
+        )
+        .join("");
+}
+
+
+/* =========================================
+   SECURITY / DISPLAY
+========================================= */
+
+function escapeHTML(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(message) {
+
+    const box =
+        document.createElement("div");
+
+    box.textContent = message;
+
+    box.style.position = "fixed";
+    box.style.bottom = "25px";
+    box.style.left = "50%";
+    box.style.transform = "translateX(-50%)";
+    box.style.background = "#182033";
+    box.style.color = "white";
+    box.style.padding = "12px 20px";
+    box.style.borderRadius = "30px";
+    box.style.zIndex = "9999";
+    box.style.fontWeight = "bold";
+
+    document.body.appendChild(box);
+
+    setTimeout(() => {
+
+        box.remove();
+
+    }, 1800);
+}
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+document
+    .getElementById("nameInput")
+    .addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
+
+            generateNames();
+
+        }
+
+    });
+
+
+/* =========================================
+   INITIAL DEMO
+========================================= */
+
+generatedName = "Surahata Gumaneh";
+
+document.getElementById("nameInput").value =
+    generatedName;
+
+renderResults();
+
+</script>
+
 </body>
-</html>
+  </html>
