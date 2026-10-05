@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1677ff">
+<meta name="description" content="SG Name Style - beautiful name generator">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<title>SG Name Style</title>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <div class="logo"><img id="appLogo" alt="SG"></div>
+    <div><strong>SG Name Style</strong><small>SG ENTERPRISE</small></div>
+  </div>
+  <button id="themeBtn" class="icon-btn" title="Theme">☾</button>
+</header>
+
+<main>
+<section class="hero">
+  <div class="glow"></div>
+  <span class="eyebrow">✦ NAME STYLE GENERATOR</span>
+  <h1>Your name.<br><span>Your style.</span></h1>
+  <p>Create beautiful names for games, social media, profiles and more.</p>
+  <div class="input-box">
+    <input id="nameInput" value="Surahata" maxlength="60" placeholder="Enter your name">
+    <button id="generateBtn">Generate <b>→</b></button>
+  </div>
+</section>
+
+<section class="toolbar">
+  <div>
+    <h2>Explore styles</h2>
+    <small id="count">0 styles</small>
+  </div>
+  <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search styles"></div>
+</section>
+
+<nav id="categories" class="categories"></nav>
+<section id="styles" class="grid"></section>
+<div id="empty" class="empty hidden">No styles found.</div>
+</main>
+
+<footer><b>SG ENTERPRISE</b> · SG Name Style · Works offline</footer>
+</div>
+
+<div id="toast"></div>
+<script src="js/config.js"></script>
+<script src="js/styles.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
