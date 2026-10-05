@@ -1,9 +1,0 @@
-{
-  "name":"SG Name Style",
-  "short_name":"SG Name Style",
-  "start_url":"./",
-  "display":"standalone",
-  "background_color":"#f5f8ff",
-  "theme_color":"#1677ff",
-  "description":"Beautiful offline name style generator"
-}
